@@ -13,7 +13,6 @@ import com.equality.xutils.activity.SearchActivity;
 import com.equality.xutils.adapter.WifiAdapter;
 import com.equality.xutils.common.fragment.BaseLazyFragment;
 import com.equality.xutils.model.WifiBean;
-import com.equality.xutils.utils.ToastUtils;
 import com.equality.xutils.utils.WifiUtils;
 
 import java.util.ArrayList;
@@ -21,7 +20,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import ui.tianxiabuyi.com.loadinglayout.LoadingLayout;
 
 /**
  * Created by 46786 on 2018/3/23.
@@ -36,7 +34,6 @@ public class WIFIFragment extends BaseLazyFragment
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private LoadingLayout mLoadingLayout;
     private List<WifiBean> mData = new ArrayList<>();
     private WifiAdapter mAdapter;
     private WifiUtils mWifiUtils;
@@ -54,29 +51,22 @@ public class WIFIFragment extends BaseLazyFragment
         mAdapter = new WifiAdapter(mData);
         mAdapter.setOnItemClickListener(this);
         rv.setAdapter(mAdapter);
-        // loading
-        mLoadingLayout = LoadingLayout.wrap(rv);
-        mLoadingLayout.showLoading();
     }
 
     @Override
     public void initData() {
-        mWifiUtils = new WifiUtils(getActivity());
-        if (!mWifiUtils.isOpenWifi()) {
-            ToastUtils.show(getActivity(), "请手动打开无线网开关");
-            mLoadingLayout.showEmpty();
-
-        } else {
-            String mScanResult = mWifiUtils.getScanResult();
-            Log.e(TAG, "initView: " + mScanResult);
-
-            for (int i = 0; i < 5; i++) {
-                WifiBean bean = new WifiBean("test", "-48dbm");
-                mData.add(bean);
-            }
-            mAdapter.notifyDataSetChanged();
-            mLoadingLayout.showContent();
+        for (int i = 0; i < 5; i++) {
+            WifiBean bean = new WifiBean("test", "-48dbm");
+            mData.add(bean);
         }
+        mAdapter.notifyDataSetChanged();
+
+        mWifiUtils = new WifiUtils(getActivity());
+        if (mWifiUtils.isOpenWifi()) {
+            String mScanResult = mWifiUtils.getScanResult();
+            Log.e(TAG, "initData: " + mScanResult);
+        }
+        // ToastUtils.show(getActivity(), "请手动打开无线网开关");
     }
 
     @Override
@@ -85,7 +75,6 @@ public class WIFIFragment extends BaseLazyFragment
         Log.e(TAG, "initView: " + mScanResult);
 
         srl.setRefreshing(false);
-        mLoadingLayout.showContent();
     }
 
     @OnClick(R.id.llEdtContainer)

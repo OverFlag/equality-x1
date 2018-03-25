@@ -16,7 +16,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import ui.tianxiabuyi.com.loadinglayout.LoadingLayout;
 
 /**
  * Created by 46786 on 2018/3/23.
@@ -26,7 +25,6 @@ public class BluetoothFragment extends BaseLazyFragment {
     @BindView(R.id.rv)
     RecyclerView rv;
 
-    private LoadingLayout mLoadingLayout;
     private List<CusSectionEntity<BluetoothBean>> mData = new ArrayList<>();
     private BlueToothAdapter mAddapter;
 

@@ -58,6 +58,4 @@ dependencies {
     implementation 'pub.devrel:easypermissions:1.0.1'
     implementation 'com.google.code.gson:gson:2.8.2'
     implementation 'org.greenrobot:eventbus:3.0.0'
-
-    compile 'com.github.bigwangoo:loadinglayout:1.0.0'
 }
