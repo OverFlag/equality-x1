@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">xutils</string>
+
+    <string name="common_cancel">取消</string>
+
+    <string name="tip_press_again_to_exit">再按一次退出程序</string>
+
+    <color name="tx_bg_line">#dbdbdb</color>
 </resources>

@@ -1,16 +1,21 @@
 package com.equality.xutils.activity;
 
+import android.content.Intent;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.TextView;
 
+import com.equality.xutils.MainActivity;
 import com.equality.xutils.R;
-import com.equality.xutils.common.BaseActivity;
+import com.equality.xutils.common.activity.BaseActivity;
+import com.equality.xutils.utils.ActivityUtils;
+import com.equality.xutils.utils.AppUtils;
 
 import java.lang.ref.WeakReference;
+
+import butterknife.BindView;
 
 /**
  * description
@@ -25,16 +30,30 @@ public class SplashActivity extends BaseActivity {
      */
     private static final int TIME_MILLIS_DELAY = 1000;
 
+    @BindView(R.id.tvVersion)
+    TextView tvVersion;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
-        if (ActivityUtils.getInstance().size() > 0) {
+    public int getViewByXml() {
+        return R.layout.activity_splash;
+    }
+
+    @Override
+    public void initView() {
+        String version = "V" + AppUtils.getVersionName(this);
+        tvVersion.setText(version);
+
+        if (ActivityUtils.getInstance().size() > 1) {
             finish();
         } else {
-            MyHandler handler = new MyHandler(this);
+            LeakHandler handler = new LeakHandler(this);
             handler.sendEmptyMessageDelayed(1, TIME_MILLIS_DELAY);
         }
+    }
+
+    @Override
+    public void initData() {
+
     }
 
     @Override
@@ -52,10 +71,10 @@ public class SplashActivity extends BaseActivity {
         }
     }
 
-    private static class MyHandler extends Handler {
+    private static class LeakHandler extends Handler {
         private final WeakReference<SplashActivity> mActivity;
 
-        MyHandler(SplashActivity activity) {
+        LeakHandler(SplashActivity activity) {
             mActivity = new WeakReference<>(activity);
         }
 
@@ -65,7 +84,8 @@ public class SplashActivity extends BaseActivity {
             super.handleMessage(msg);
             if (1 == msg.what) {
                 if (activity != null) {
-                    activity.goHome();
+                    Intent intent = new Intent(activity, MainActivity.class);
+                    activity.startActivity(intent);
                     activity.finish();
                 }
             }

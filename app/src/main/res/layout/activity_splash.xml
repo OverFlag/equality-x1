@@ -1,14 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary">
 
     <ImageView
-        android:id="@+id/ivSplash"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/ivEQuality"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_above="@id/ivLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="68dp"
+        android:background="@drawable/ic_equality_white"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/ivLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerInParent="true"
         android:background="@mipmap/ic_launcher"
         android:scaleType="fitXY"
         tools:ignore="ContentDescription" />
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivLogo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="60dp"
+        android:text="卓品智能诊断工具（Android）"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="V1.0.0"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+</RelativeLayout>
